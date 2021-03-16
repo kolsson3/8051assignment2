@@ -15,6 +15,26 @@
 		CC057FAA25E71D37003331D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC057FA825E71D37003331D2 /* LaunchScreen.storyboard */; };
 		CC057FAD25E71D37003331D2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC057FAC25E71D37003331D2 /* main.m */; };
 		CC057FBC25E72667003331D2 /* BaseEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = CC057FBB25E72667003331D2 /* BaseEffect.m */; };
+		CC241B0F25FF222A00C0FCF4 /* sun.png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B0D25FF222A00C0FCF4 /* sun.png */; };
+		CC241B1025FF222A00C0FCF4 /* moon.png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B0E25FF222A00C0FCF4 /* moon.png */; };
+		CC241B1425FF2FB400C0FCF4 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = CC241B1325FF2FB400C0FCF4 /* Camera.m */; };
+		CC241B2825FF42F100C0FCF4 /* Tile (1).png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B1825FF42F100C0FCF4 /* Tile (1).png */; };
+		CC241B2925FF42F100C0FCF4 /* Tile (2).png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B1925FF42F100C0FCF4 /* Tile (2).png */; };
+		CC241B2A25FF42F100C0FCF4 /* Tile (9).png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B1A25FF42F100C0FCF4 /* Tile (9).png */; };
+		CC241B2B25FF42F100C0FCF4 /* Tile (3).png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B1B25FF42F100C0FCF4 /* Tile (3).png */; };
+		CC241B2C25FF42F100C0FCF4 /* Tile (15).png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B1C25FF42F100C0FCF4 /* Tile (15).png */; };
+		CC241B2D25FF42F100C0FCF4 /* Tile (7).png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B1D25FF42F100C0FCF4 /* Tile (7).png */; };
+		CC241B2E25FF42F100C0FCF4 /* Tile (5).png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B1E25FF42F100C0FCF4 /* Tile (5).png */; };
+		CC241B2F25FF42F100C0FCF4 /* Tile (14).png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B1F25FF42F100C0FCF4 /* Tile (14).png */; };
+		CC241B3025FF42F100C0FCF4 /* Player.png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B2025FF42F100C0FCF4 /* Player.png */; };
+		CC241B3125FF42F100C0FCF4 /* Tile (11).png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B2125FF42F100C0FCF4 /* Tile (11).png */; };
+		CC241B3225FF42F100C0FCF4 /* Tile (8).png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B2225FF42F100C0FCF4 /* Tile (8).png */; };
+		CC241B3325FF42F100C0FCF4 /* Tile (4).png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B2325FF42F100C0FCF4 /* Tile (4).png */; };
+		CC241B3425FF42F100C0FCF4 /* Tile (6).png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B2425FF42F100C0FCF4 /* Tile (6).png */; };
+		CC241B3525FF42F100C0FCF4 /* Tile (12).png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B2525FF42F100C0FCF4 /* Tile (12).png */; };
+		CC241B3625FF42F100C0FCF4 /* Tile (13).png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B2625FF42F100C0FCF4 /* Tile (13).png */; };
+		CC241B3725FF42F100C0FCF4 /* Tile (10).png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B2725FF42F100C0FCF4 /* Tile (10).png */; };
+		CC241B3A25FF493A00C0FCF4 /* Tile (16).png in Resources */ = {isa = PBXBuildFile; fileRef = CC241B3925FF493A00C0FCF4 /* Tile (16).png */; };
 		CC67DAD825FBEBB5004FF117 /* WallModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC67DAD725FBEBB5004FF117 /* WallModel.m */; };
 		CC67DADC25FBEBD3004FF117 /* FloorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC67DADB25FBEBD3004FF117 /* FloorModel.m */; };
 		CC67DAE725FBFBC0004FF117 /* MazeGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = CC67DAE625FBFBC0004FF117 /* MazeGenerator.mm */; };
@@ -47,6 +67,27 @@
 		CC057FAC25E71D37003331D2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CC057FBB25E72667003331D2 /* BaseEffect.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseEffect.m; sourceTree = "<group>"; };
 		CC057FBF25E72751003331D2 /* BaseEffect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseEffect.h; sourceTree = "<group>"; };
+		CC241B0D25FF222A00C0FCF4 /* sun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sun.png; sourceTree = SOURCE_ROOT; };
+		CC241B0E25FF222A00C0FCF4 /* moon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moon.png; sourceTree = SOURCE_ROOT; };
+		CC241B1225FF2FB400C0FCF4 /* Camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		CC241B1325FF2FB400C0FCF4 /* Camera.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
+		CC241B1825FF42F100C0FCF4 /* Tile (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile (1).png"; sourceTree = "<group>"; };
+		CC241B1925FF42F100C0FCF4 /* Tile (2).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile (2).png"; sourceTree = "<group>"; };
+		CC241B1A25FF42F100C0FCF4 /* Tile (9).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile (9).png"; sourceTree = "<group>"; };
+		CC241B1B25FF42F100C0FCF4 /* Tile (3).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile (3).png"; sourceTree = "<group>"; };
+		CC241B1C25FF42F100C0FCF4 /* Tile (15).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile (15).png"; sourceTree = "<group>"; };
+		CC241B1D25FF42F100C0FCF4 /* Tile (7).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile (7).png"; sourceTree = "<group>"; };
+		CC241B1E25FF42F100C0FCF4 /* Tile (5).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile (5).png"; sourceTree = "<group>"; };
+		CC241B1F25FF42F100C0FCF4 /* Tile (14).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile (14).png"; sourceTree = "<group>"; };
+		CC241B2025FF42F100C0FCF4 /* Player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Player.png; sourceTree = "<group>"; };
+		CC241B2125FF42F100C0FCF4 /* Tile (11).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile (11).png"; sourceTree = "<group>"; };
+		CC241B2225FF42F100C0FCF4 /* Tile (8).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile (8).png"; sourceTree = "<group>"; };
+		CC241B2325FF42F100C0FCF4 /* Tile (4).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile (4).png"; sourceTree = "<group>"; };
+		CC241B2425FF42F100C0FCF4 /* Tile (6).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile (6).png"; sourceTree = "<group>"; };
+		CC241B2525FF42F100C0FCF4 /* Tile (12).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile (12).png"; sourceTree = "<group>"; };
+		CC241B2625FF42F100C0FCF4 /* Tile (13).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile (13).png"; sourceTree = "<group>"; };
+		CC241B2725FF42F100C0FCF4 /* Tile (10).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile (10).png"; sourceTree = "<group>"; };
+		CC241B3925FF493A00C0FCF4 /* Tile (16).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile (16).png"; sourceTree = "<group>"; };
 		CC67DAD625FBEBB5004FF117 /* WallModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WallModel.h; sourceTree = "<group>"; };
 		CC67DAD725FBEBB5004FF117 /* WallModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WallModel.m; sourceTree = "<group>"; };
 		CC67DADA25FBEBD3004FF117 /* FloorModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloorModel.h; sourceTree = "<group>"; };
@@ -102,13 +143,14 @@
 		CC057F9925E71D37003331D2 /* Project1 */ = {
 			isa = PBXGroup;
 			children = (
+				CC241B3C25FF4A6A00C0FCF4 /* Map */,
 				CC67DAD425FBEA7D004FF117 /* Textures */,
 				CCE0E7A025ED875500A34D97 /* Shaders */,
 				CCFA783025ECC6A5002EFAD1 /* Models */,
+				CC241B1225FF2FB400C0FCF4 /* Camera.h */,
+				CC241B1325FF2FB400C0FCF4 /* Camera.m */,
 				CC057FA025E71D37003331D2 /* ViewController.h */,
 				CC057FA125E71D37003331D2 /* ViewController.m */,
-				CC057FBF25E72751003331D2 /* BaseEffect.h */,
-				CC057FBB25E72667003331D2 /* BaseEffect.m */,
 				CCE6A69E25E728F000E63FCC /* Vertex.h */,
 				CC057FA325E71D37003331D2 /* Main.storyboard */,
 				CC057FA825E71D37003331D2 /* LaunchScreen.storyboard */,
@@ -119,6 +161,37 @@
 				CC057F9D25E71D37003331D2 /* SceneDelegate.h */,
 				CC057F9E25E71D37003331D2 /* SceneDelegate.m */,
 				CC057FA625E71D37003331D2 /* Assets.xcassets */,
+			);
+			path = Project1;
+			sourceTree = "<group>";
+		};
+		CC241B1725FF42DB00C0FCF4 /* Minimap */ = {
+			isa = PBXGroup;
+			children = (
+				CC241B2025FF42F100C0FCF4 /* Player.png */,
+				CC241B1825FF42F100C0FCF4 /* Tile (1).png */,
+				CC241B1925FF42F100C0FCF4 /* Tile (2).png */,
+				CC241B1B25FF42F100C0FCF4 /* Tile (3).png */,
+				CC241B2325FF42F100C0FCF4 /* Tile (4).png */,
+				CC241B1E25FF42F100C0FCF4 /* Tile (5).png */,
+				CC241B2425FF42F100C0FCF4 /* Tile (6).png */,
+				CC241B1D25FF42F100C0FCF4 /* Tile (7).png */,
+				CC241B2225FF42F100C0FCF4 /* Tile (8).png */,
+				CC241B1A25FF42F100C0FCF4 /* Tile (9).png */,
+				CC241B2725FF42F100C0FCF4 /* Tile (10).png */,
+				CC241B2125FF42F100C0FCF4 /* Tile (11).png */,
+				CC241B2525FF42F100C0FCF4 /* Tile (12).png */,
+				CC241B2625FF42F100C0FCF4 /* Tile (13).png */,
+				CC241B1F25FF42F100C0FCF4 /* Tile (14).png */,
+				CC241B1C25FF42F100C0FCF4 /* Tile (15).png */,
+				CC241B3925FF493A00C0FCF4 /* Tile (16).png */,
+			);
+			path = Minimap;
+			sourceTree = "<group>";
+		};
+		CC241B3C25FF4A6A00C0FCF4 /* Map */ = {
+			isa = PBXGroup;
+			children = (
 				CC67DAE525FBFBC0004FF117 /* MazeGenerator.h */,
 				CC67DAE625FBFBC0004FF117 /* MazeGenerator.mm */,
 				CC67DAF825FC0570004FF117 /* DisjointSet.cpp */,
@@ -126,16 +199,19 @@
 				CC67DAF425FC0551004FF117 /* maze.cpp */,
 				CC67DAF525FC0551004FF117 /* maze.h */,
 			);
-			path = Project1;
+			path = Map;
 			sourceTree = "<group>";
 		};
 		CC67DAD425FBEA7D004FF117 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				CC241B1725FF42DB00C0FCF4 /* Minimap */,
 				CCA8C3E425FD6479006D23BA /* floor.png */,
 				CCA8C3E725FD6479006D23BA /* wall1.png */,
 				CCA8C3E825FD6479006D23BA /* wall2.png */,
 				CCA8C3E525FD6479006D23BA /* wall3.png */,
+				CC241B0E25FF222A00C0FCF4 /* moon.png */,
+				CC241B0D25FF222A00C0FCF4 /* sun.png */,
 				CCA8C3E625FD6479006D23BA /* wall4.png */,
 				CC67DAFF25FC442C004FF117 /* crate.jpg */,
 			);
@@ -145,6 +221,8 @@
 		CCE0E7A025ED875500A34D97 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				CC057FBF25E72751003331D2 /* BaseEffect.h */,
+				CC057FBB25E72667003331D2 /* BaseEffect.m */,
 				CCE6A69B25E7288200E63FCC /* VertexShader.glsl */,
 				CCE6A69825E7286800E63FCC /* FragmentShader.glsl */,
 			);
@@ -222,17 +300,36 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC241B1025FF222A00C0FCF4 /* moon.png in Resources */,
+				CC241B0F25FF222A00C0FCF4 /* sun.png in Resources */,
+				CC241B3025FF42F100C0FCF4 /* Player.png in Resources */,
 				CC057FAA25E71D37003331D2 /* LaunchScreen.storyboard in Resources */,
+				CC241B3125FF42F100C0FCF4 /* Tile (11).png in Resources */,
+				CC241B2C25FF42F100C0FCF4 /* Tile (15).png in Resources */,
 				CCA8C3E925FD6479006D23BA /* floor.png in Resources */,
+				CC241B2925FF42F100C0FCF4 /* Tile (2).png in Resources */,
 				CCA8C3ED25FD6479006D23BA /* wall2.png in Resources */,
 				CCA8C3EB25FD6479006D23BA /* wall4.png in Resources */,
+				CC241B2D25FF42F100C0FCF4 /* Tile (7).png in Resources */,
+				CC241B3625FF42F100C0FCF4 /* Tile (13).png in Resources */,
+				CC241B2F25FF42F100C0FCF4 /* Tile (14).png in Resources */,
+				CC241B3525FF42F100C0FCF4 /* Tile (12).png in Resources */,
+				CC241B2A25FF42F100C0FCF4 /* Tile (9).png in Resources */,
+				CC241B2B25FF42F100C0FCF4 /* Tile (3).png in Resources */,
 				CC057FA725E71D37003331D2 /* Assets.xcassets in Resources */,
 				CC67DB0025FC442C004FF117 /* crate.jpg in Resources */,
 				CCE6A69C25E7288200E63FCC /* VertexShader.glsl in Resources */,
+				CC241B3725FF42F100C0FCF4 /* Tile (10).png in Resources */,
 				CCE6A69925E7286800E63FCC /* FragmentShader.glsl in Resources */,
+				CC241B3425FF42F100C0FCF4 /* Tile (6).png in Resources */,
 				CC057FA525E71D37003331D2 /* Main.storyboard in Resources */,
+				CC241B3325FF42F100C0FCF4 /* Tile (4).png in Resources */,
+				CC241B3A25FF493A00C0FCF4 /* Tile (16).png in Resources */,
 				CCA8C3EA25FD6479006D23BA /* wall3.png in Resources */,
 				CCA8C3EC25FD6479006D23BA /* wall1.png in Resources */,
+				CC241B2825FF42F100C0FCF4 /* Tile (1).png in Resources */,
+				CC241B3225FF42F100C0FCF4 /* Tile (8).png in Resources */,
+				CC241B2E25FF42F100C0FCF4 /* Tile (5).png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +352,7 @@
 				CCE6A6AC25E7864D00E63FCC /* CubeModel.m in Sources */,
 				CC67DAE725FBFBC0004FF117 /* MazeGenerator.mm in Sources */,
 				CC057FBC25E72667003331D2 /* BaseEffect.m in Sources */,
+				CC241B1425FF2FB400C0FCF4 /* Camera.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

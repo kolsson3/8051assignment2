@@ -11,9 +11,11 @@
 #import "GLKit/GLKit.h"
 #import "BaseEffect.h"
 
+
 @interface MazeGenerator : NSObject
 
 - (void) setupMaze : (BaseEffect *) _shader;
-- (NSMutableArray *) getWalls;
+- (NSMutableArray *) getWalls; //Return an array of walls to be drawn
+- (NSMutableArray *) generateMinimap; //Generates an array of image names to draw minimap
 
 @end

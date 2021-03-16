@@ -46,8 +46,6 @@ const static GLubyte indices[] = {
 //Update method interited from Model.m
 -(void)updateWithDelta:(NSTimeInterval)delta
 {
-    //Rotates the cube
-    self.rotationY += M_PI * delta / 8;
 }
 
 @end
