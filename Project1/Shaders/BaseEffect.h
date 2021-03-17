@@ -16,7 +16,13 @@
 @property (assign) GLuint texture; //Texture applied to the model
 
 @property float ambientLight;
-
+@property float fogDistance;
+@property float fogDensity;
+@property GLKVector4 fogColor;
+@property float fogColorR;
+@property float fogColorG;
+@property float fogColorB;
+@property bool fogIsActive;
 
 - (id)initWithVertexShader:(NSString *)vertextShader
             fragmentShader:(NSString *)fragmentShader;

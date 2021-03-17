@@ -31,9 +31,8 @@
     GLKVector3 camPos;
     GLKVector3 camForward;
     UIView *minimapContainer;
+    UIView *fogOptionContainer;
     GLKVector3 cameraTranslation;
-    
-    
     float vInit;
 }
 
@@ -52,10 +51,9 @@
     UIPanGestureRecognizer *panSingleGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleSinglePanGesture: )];
     panSingleGesture.maximumNumberOfTouches = 1;
     panSingleGesture.minimumNumberOfTouches = 1;
-    
     [self.view addGestureRecognizer:panSingleGesture];
     
-    //Double tap gesture for showing mini map.
+    //Two finger double tap gesture for showing mini map.
     UITapGestureRecognizer *doubleTap2F = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(minimapHandler:)];
     doubleTap2F.numberOfTapsRequired = 2;
     doubleTap2F.numberOfTouchesRequired = 2;
@@ -67,77 +65,8 @@
     doubleTap1F.numberOfTouchesRequired = 1;
     [self.view addGestureRecognizer:doubleTap1F];
     
-    //Button for toggling day/night
-    UIButton *lightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    lightButton.frame = CGRectMake(5,20,100,25);
-    [lightButton setTitle:@"Day/Night" forState:UIControlStateNormal];
-    [lightButton setBackgroundColor:[UIColor blackColor]];
-    [lightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [lightButton addTarget:self action:@selector(dayNightSwap:) forControlEvents:UIControlEventTouchDown];
-    [lightButton setEnabled:YES];
-    [self.view addSubview:lightButton];
-    
-    
-    //Button for toggling day/night
-    UIButton *up = [UIButton buttonWithType:UIButtonTypeCustom];
-    up.frame = CGRectMake(5,50,25,25);
-    [up setTitle:@"Up" forState:UIControlStateNormal];
-    [up setBackgroundColor:[UIColor blackColor]];
-    [up setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [up addTarget:self action:@selector(upHandle:) forControlEvents:UIControlEventTouchDown];
-    [up setEnabled:YES];
-    [self.view addSubview:up];
-    
-    UIButton *down = [UIButton buttonWithType:UIButtonTypeCustom];
-    down.frame = CGRectMake(5,75,25,25);
-    [down setTitle:@"Down" forState:UIControlStateNormal];
-    [down setBackgroundColor:[UIColor blackColor]];
-    [down setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [down addTarget:self action:@selector(downHandle:) forControlEvents:UIControlEventTouchDown];
-    [down setEnabled:YES];
-    [self.view addSubview:down];
-    
-    UIButton *left = [UIButton buttonWithType:UIButtonTypeCustom];
-    left.frame = CGRectMake(5,100,25,25);
-    [left setTitle:@"Left" forState:UIControlStateNormal];
-    [left setBackgroundColor:[UIColor blackColor]];
-    [left setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [left addTarget:self action:@selector(leftHandle:) forControlEvents:UIControlEventTouchDown];
-    [left setEnabled:YES];
-    [self.view addSubview:left];
-    
-    UIButton *right = [UIButton buttonWithType:UIButtonTypeCustom];
-    right.frame = CGRectMake(5,125,25,25);
-    [right setTitle:@"Right" forState:UIControlStateNormal];
-    [right setBackgroundColor:[UIColor blackColor]];
-    [right setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [right addTarget:self action:@selector(rightHandle:) forControlEvents:UIControlEventTouchDown];
-    [right setEnabled:YES];
-    [self.view addSubview:right];
-    
-    
-    
-    
-    //Setting initial image for day/night indicator
-    dayNight = [[UIImageView alloc] initWithFrame:CGRectMake(105, 20, 25, 25)];
-    dayNight.image = [UIImage imageNamed:@"sun"];
-    [self.view addSubview:dayNight];
-    
-    //Creating a container for mini map elements.
-    minimapContainer = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (4 * 25) - 5, 20, 100, 100)];
-    [minimapContainer setBackgroundColor:[UIColor blackColor]];
-    [minimapContainer setAlpha:0.65];
-    [self.view addSubview:minimapContainer];
-    [minimapContainer setHidden:YES];
-
-    //Label for mini map container
-    UILabel *minimapLabel = [[UILabel alloc] init];
-    minimapLabel.frame = CGRectMake(0,0,100,25);
-    [minimapLabel setText:@"Minimap"];
-    [minimapLabel setBackgroundColor:[UIColor blackColor]];
-    [minimapLabel setTextColor:[UIColor whiteColor]];
-    [minimapLabel setTextAlignment:NSTextAlignmentCenter];
-    [minimapContainer addSubview:minimapLabel];
+    //Set up UI elements
+    [self setupUIElements];
     
     //Set up scene elements
     [self setupScene];
@@ -147,26 +76,6 @@
     playerIcon.image = [UIImage imageNamed:@"Player.png"];
     playerIcon.transform = CGAffineTransformMakeRotation(M_PI);
     [minimapContainer addSubview:playerIcon];
-}
-
--(void) upHandle : (id) sender
-{
-    camPos = GLKVector3Make(camPos.x + 0.5, camPos.y, camPos.z);
-}
-
--(void) downHandle : (id) sender
-{
-    camPos = GLKVector3Make(camPos.x - 0.5, camPos.y, camPos.z);
-}
-
--(void) leftHandle : (id) sender
-{
-    camPos = GLKVector3Make(camPos.x, camPos.y, camPos.z + 0.5);
-}
-
--(void) rightHandle : (id) sender
-{
-    camPos = GLKVector3Make(camPos.x, camPos.y, camPos.z - 0.5);
 }
 
 //Additional setup code
@@ -211,13 +120,11 @@
     _cube.scale = 0.2;
     _cube.position = GLKVector3Make(0, 0, 0);
     
-    //Trying to figure out movement and whatnot
+    //Some variables used by movement that isnt working
     rotationAngle = M_PI;
     camForward = GLKVector3Make(0, 0, -1);
     camPos = GLKVector3Make(0, 0, 0);
-    
     cameraTranslation = GLKVector3Make(0, 0, 0);
-    
     vInit = 0;
 }
 
@@ -246,7 +153,7 @@
     //Render the cube
     [_cube renderWithParentModelViewMatrix:viewMatrix];
     
-    //Update player icon
+    //Update player icon not fully working
     playerIcon.transform = CGAffineTransformMakeRotation(rotationAngle);
     playerIcon.transform = CGAffineTransformTranslate(playerIcon.transform, camPos.x, camPos.z);
 }
@@ -342,9 +249,224 @@
 //Tap handler for reseting player location
 - (void) playerReset : (id) sender
 {
-    rotationAngle = M_PI;
-    camForward = GLKVector3Make(0, 0, -1);
-    camPos = GLKVector3Make(0, 0, -1);
+    if(![sender isKindOfClass:[UIButton class]])
+    {
+        rotationAngle = M_PI;
+        camForward = GLKVector3Make(0, 0, -1);
+        camPos = GLKVector3Make(0, 0, -1);
+    }
+}
+
+/**
+    Fog control handlers
+ */
+
+//Toggles fog and fog controls container
+-(void) foggler : (id) sender
+{
+    _shader.fogIsActive = !_shader.fogIsActive;
+    [fogOptionContainer setHidden:![fogOptionContainer isHidden]];
+}
+
+//Update fog density
+- (void) fogDensityChange : (UITextField *) sender
+{
+    float density = [sender.text floatValue];
+    if(density >= 0 && density <= 20) _shader.fogDensity = density;
+    else
+    {
+        _shader.fogDensity = 6;
+        [sender setText:@"6"];
+    }
+}
+
+//Update fog distance
+- (void) fogDistanceChange : (UITextField *) sender
+{
+    float dist = [sender.text floatValue];
+    if(dist >= 0 && dist <= 100) _shader.fogDistance = dist;
+    else
+    {
+        _shader.fogDistance = 20;
+        [sender setText:@"20"];
+    }
+}
+
+//Update fog redness
+- (void) fogColorRChange : (UITextField *) sender
+{
+    float r = [sender.text floatValue];
+    if(r >= 0 && r <= 1) _shader.fogColorR = r;
+    else
+    {
+        _shader.fogColorR = 1;
+        [sender setText:@"1.0"];
+    }
+}
+
+//Update fog greenness
+- (void) fogColorGChange : (UITextField *) sender
+{
+    float g = [sender.text floatValue];
+    if(g >= 0 && g <= 1) _shader.fogColorG = g;
+    else
+    {
+        _shader.fogColorG = 1;
+        [sender setText:@"1.0"];
+    }
+}
+
+//Update fog blueness
+- (void) fogColorBChange : (UITextField *) sender
+{
+    float b = [sender.text floatValue];
+    if(b >= 0 && b <= 1) _shader.fogColorB = b;
+    else
+    {
+        _shader.fogColorB = 1;
+        [sender setText:@"1.0"];
+    }
+}
+
+/**
+        End Fog control handlers
+ */
+
+//Function to set up UI Elements, really just to keep them separate for cleanliness
+- (void) setupUIElements
+{
+    //Button for toggling day/night
+    UIButton *lightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    lightButton.frame = CGRectMake(5,20,100,25);
+    [lightButton setTitle:@"Day/Night" forState:UIControlStateNormal];
+    [lightButton setBackgroundColor:[UIColor blackColor]];
+    [lightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [lightButton addTarget:self action:@selector(dayNightSwap:) forControlEvents:UIControlEventTouchDown];
+    [lightButton setEnabled:YES];
+    [self.view addSubview:lightButton];
+    
+    //Setting initial image for day/night indicator
+    dayNight = [[UIImageView alloc] initWithFrame:CGRectMake(105, 20, 25, 25)];
+    dayNight.image = [UIImage imageNamed:@"sun"];
+    [self.view addSubview:dayNight];
+    
+    //Button for toggling fog (foggling)
+    UIButton *fogToggleakaFoggle = [UIButton buttonWithType:UIButtonTypeCustom];
+    fogToggleakaFoggle.frame = CGRectMake(5,50,100,25);
+    [fogToggleakaFoggle setTitle:@"Fog" forState:UIControlStateNormal];
+    [fogToggleakaFoggle setBackgroundColor:[UIColor blackColor]];
+    [fogToggleakaFoggle setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [fogToggleakaFoggle addTarget:self action:@selector(foggler:) forControlEvents:UIControlEventTouchDown];
+    [fogToggleakaFoggle setEnabled:YES];
+    [self.view addSubview:fogToggleakaFoggle];
+    
+    //Container for the fog controls
+    fogOptionContainer = [[UIView alloc] initWithFrame:CGRectMake(5, 75, 100, 125)];
+    [fogOptionContainer setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:fogOptionContainer];
+    [fogOptionContainer setHidden:YES];
+    
+    //Labels for fog controls
+    UILabel *fogDensityLabel = [[UILabel alloc] init];
+    fogDensityLabel.frame = CGRectMake(0,0,70,25);
+    [fogDensityLabel setText:@"Density"];
+    [fogDensityLabel setTextColor:[UIColor whiteColor]];
+    [fogOptionContainer addSubview:fogDensityLabel];
+    
+    //Labels for fog controls
+    UILabel *fogDistanceLabel = [[UILabel alloc] init];
+    fogDistanceLabel.frame = CGRectMake(0,25,70,25);
+    [fogDistanceLabel setText:@"Distance"];
+    [fogDistanceLabel setTextColor:[UIColor whiteColor]];
+    [fogOptionContainer addSubview:fogDistanceLabel];
+    
+    //Text field for setting fog density
+    UITextField *fogDensityField = [[UITextField alloc] initWithFrame:CGRectMake(70, 0, 30, 25)];
+    [fogDensityField setText:@"6"];
+    [fogDensityField setBackgroundColor:[UIColor whiteColor]];
+    [fogDensityField setTextAlignment:NSTextAlignmentCenter];
+    [fogDensityField addTarget:self action:@selector(fogDensityChange:) forControlEvents:UIControlEventEditingChanged];
+    [fogOptionContainer addSubview:fogDensityField];
+    
+    //Text field for setting fog distance
+    UITextField *fogDistanceField = [[UITextField alloc] initWithFrame:CGRectMake(70, 25, 30, 25)];
+    [fogDistanceField setText:@"20"];
+    [fogDistanceField setBackgroundColor:[UIColor whiteColor]];
+    [fogDistanceField setTextAlignment:NSTextAlignmentCenter];
+    [fogDistanceField addTarget:self action:@selector(fogDistanceChange:) forControlEvents:UIControlEventEditingChanged];
+    [fogOptionContainer addSubview:fogDistanceField];
+    
+    //Labels for fog color controls
+    UILabel *fogColorLabel = [[UILabel alloc] init];
+    fogColorLabel.frame = CGRectMake(0,50,100,25);
+    [fogColorLabel setText:@"Color"];
+    [fogColorLabel setTextColor:[UIColor whiteColor]];
+    [fogColorLabel setTextAlignment:NSTextAlignmentCenter];
+    [fogOptionContainer addSubview:fogColorLabel];
+    
+    //Labels for fog color controls
+    UILabel *fogColorRLabel = [[UILabel alloc] init];
+    fogColorRLabel.frame = CGRectMake(0,75,33,25);
+    [fogColorRLabel setText:@"R"];
+    [fogColorRLabel setTextColor:[UIColor whiteColor]];
+    [fogColorRLabel setTextAlignment:NSTextAlignmentCenter];
+    [fogOptionContainer addSubview:fogColorRLabel];
+    
+    //Labels for fog color controls
+    UILabel *fogColorGLabel = [[UILabel alloc] init];
+    fogColorGLabel.frame = CGRectMake(33,75,33,25);
+    [fogColorGLabel setText:@"G"];
+    [fogColorGLabel setTextColor:[UIColor whiteColor]];
+    [fogColorGLabel setTextAlignment:NSTextAlignmentCenter];
+    [fogOptionContainer addSubview:fogColorGLabel];
+    
+    //Labels for fog color controls
+    UILabel *fogColorBLabel = [[UILabel alloc] init];
+    fogColorBLabel.frame = CGRectMake(66,75,33,25);
+    [fogColorBLabel setText:@"B"];
+    [fogColorBLabel setTextColor:[UIColor whiteColor]];
+    [fogColorBLabel setTextAlignment:NSTextAlignmentCenter];
+    [fogOptionContainer addSubview:fogColorBLabel];
+    
+    //Input for fog redness
+    UITextField *fogColorR = [[UITextField alloc] initWithFrame:CGRectMake(0, 100, 33, 25)];
+    [fogColorR setText:@"1.0"];
+    [fogColorR setBackgroundColor:[UIColor whiteColor]];
+    [fogColorR setTextAlignment:NSTextAlignmentCenter];
+    [fogColorR addTarget:self action:@selector(fogColorRChange:) forControlEvents:UIControlEventEditingChanged];
+    [fogOptionContainer addSubview:fogColorR];
+    
+    //Input for fog greenness
+    UITextField *fogColorG = [[UITextField alloc] initWithFrame:CGRectMake(33, 100, 33, 25)];
+    [fogColorG setText:@"1.0"];
+    [fogColorG setBackgroundColor:[UIColor whiteColor]];
+    [fogColorG setTextAlignment:NSTextAlignmentCenter];
+    [fogColorG addTarget:self action:@selector(fogColorGChange:) forControlEvents:UIControlEventEditingChanged];
+    [fogOptionContainer addSubview:fogColorG];
+    
+    //Input for fog blueness
+    UITextField *fogColorB = [[UITextField alloc] initWithFrame:CGRectMake(66, 100, 33, 25)];
+    [fogColorB setText:@"1.0"];
+    [fogColorB setBackgroundColor:[UIColor whiteColor]];
+    [fogColorB setTextAlignment:NSTextAlignmentCenter];
+    [fogColorB addTarget:self action:@selector(fogColorBChange:) forControlEvents:UIControlEventEditingChanged];
+    [fogOptionContainer addSubview:fogColorB];
+    
+    //Creating a container for mini map elements.
+    minimapContainer = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (4 * 25) - 5, 20, 100, 100)];
+    [minimapContainer setBackgroundColor:[UIColor blackColor]];
+    [minimapContainer setAlpha:0.65];
+    [self.view addSubview:minimapContainer];
+    [minimapContainer setHidden:YES];
+
+    //Label for mini map container
+    UILabel *minimapLabel = [[UILabel alloc] init];
+    minimapLabel.frame = CGRectMake(0,0,100,25);
+    [minimapLabel setText:@"Minimap"];
+    [minimapLabel setBackgroundColor:[UIColor blackColor]];
+    [minimapLabel setTextColor:[UIColor whiteColor]];
+    [minimapLabel setTextAlignment:NSTextAlignmentCenter];
+    [minimapContainer addSubview:minimapLabel];
 }
 
 @end
