@@ -23,6 +23,8 @@
     MazeGenerator *mGen;
     float rotationAngle;
     int xrotation;
+    bool canRotate;
+    float originalPoint;
     UIImageView *dayNight;
     UIImageView *playerIcon;
     GLKVector4 skycolor;
@@ -72,6 +74,8 @@
     [self setupScene];
     
     //Add player icon to minimap. Has to be done after scene setup so it's not hidden by map tiles
+    canRotate = true;
+    originalPoint = 2.0f;
     playerIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 25, 25, 25)];
     playerIcon.image = [UIImage imageNamed:@"Player.png"];
     playerIcon.transform = CGAffineTransformMakeRotation(M_PI);
@@ -123,7 +127,7 @@
     //Some variables used by movement that isnt working
     rotationAngle = M_PI;
     camForward = GLKVector3Make(0, 0, -1);
-    camPos = GLKVector3Make(0, 0, 0);
+    camPos = GLKVector3Make(0, 0, 2);
     cameraTranslation = GLKVector3Make(0, 0, 0);
     vInit = 0;
 }
@@ -168,31 +172,61 @@
 //Pan handler for rotating and moving
 - (void) handleSinglePanGesture:(UIPanGestureRecognizer *) sender
 {
-    if(sender.state == UIGestureRecognizerStateEnded)
+    if(canRotate == true)
     {
-        CGPoint translation = [sender translationInView:sender.view];
-        float x = translation.x/sender.view.frame.size.width;
-        float y = translation.y/sender.view.frame.size.width;
-        //camPos = GLKVector3Add(camPos, GLKVector3Make(x, 0, y));
+        if(sender.state == UIGestureRecognizerStateEnded)
+        {
+            CGPoint translation = [sender translationInView:sender.view];
+            float x = translation.x/sender.view.frame.size.width;
+            float y = translation.y/sender.view.frame.size.width;
+            //camPos = GLKVector3Add(camPos, GLKVector3Make(x, 0, y));
+        }
+        if(sender.state == UIGestureRecognizerStateChanged)
+        {
+            
+            //CGPoint translation = [sender translationInView:sender.view];
+            CGPoint velocity = [sender velocityInView:sender.view];
+
+            //float tY = translation.y/sender.view.frame.size.width;
+            float fX = velocity.x/sender.view.frame.size.width;
+            
+            rotationAngle += fX;
+        }
+    } else
+    {
+        if(sender.state == UIGestureRecognizerStateEnded)
+        {
+            CGPoint translation = [sender translationInView:sender.view];
+            float x = translation.x/sender.view.frame.size.width;
+            float y = translation.y/sender.view.frame.size.width;
+            //camPos = GLKVector3Add(camPos, GLKVector3Make(x, 0, y));
+        }
+        
+        if(sender.state == UIGestureRecognizerStateChanged)
+        {
+            
+            CGPoint translation = [sender translationInView:sender.view];
+            CGPoint velocity = [sender velocityInView:sender.view];
+
+            float tY = translation.y/sender.view.frame.size.width;
+            float fX = velocity.x/sender.view.frame.size.width;
+            
+            originalPoint -= 0.1f;
+            camPos = GLKVector3Make(0.0f, 0.0f, originalPoint);
+            //GLKMatrix4 viewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.5f);
+            //rotationAngle += fX;
+        }
         
     }
-    if(sender.state == UIGestureRecognizerStateChanged)
-    {
-        CGPoint translation = [sender translationInView:sender.view];
-        CGPoint velocity = [sender velocityInView:sender.view];
-
-        float tY = translation.y/sender.view.frame.size.width;
-        float fX = velocity.x/sender.view.frame.size.width;
-        
-        rotationAngle += fX;
-        
+    
+        /*
         GLKVector3 forward = GLKVector3Make(sinf(rotationAngle), 0, cosf(rotationAngle));
         
         if(tY != vInit)
         {
             camPos = GLKVector3Add(camPos, GLKVector3MultiplyScalar(forward, tY));
             vInit = tY;
-        }
+        }*/
 
         
         
@@ -227,8 +261,9 @@
         GLKVector3 move = GLKVector3Make(camForward.x/10, camForward.y/10, camForward.z/10);
         //NSLog(@"x:%f,y:%f,z:%f",camForward.x, camForward.y, camForward.z);
         if(y != 0)camPos = GLKVector3Add(camPos, translationDiff);*/
-    }
+        
 }
+
 
 //Button handler for switching between night and day
 - (void) dayNightSwap : (id) sender
@@ -238,6 +273,12 @@
     _shader.ambientLight = day ? 0.1 : 0.75;
     dayNight.image = day ? [UIImage imageNamed:@"moon.png"] : [UIImage imageNamed:@"sun.png"];
     skycolor = day ? nightcolor : daycolor;
+}
+
+//Button handler to stop camera from rotating when player moves
+- (void) toggleRotate : (id) sender
+{
+    canRotate = !canRotate;
 }
 
 //Tap handler for showing/hiding the minimap
@@ -253,7 +294,8 @@
     {
         rotationAngle = M_PI;
         camForward = GLKVector3Make(0, 0, -1);
-        camPos = GLKVector3Make(0, 0, -1);
+        camPos = GLKVector3Make(0, 0, 2);
+        originalPoint = 2.0f;
     }
 }
 
@@ -349,6 +391,16 @@
     dayNight = [[UIImageView alloc] initWithFrame:CGRectMake(105, 20, 25, 25)];
     dayNight.image = [UIImage imageNamed:@"sun"];
     [self.view addSubview:dayNight];
+    
+    //Button for toggling rotating camera
+    UIButton *rotateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    rotateButton.frame = CGRectMake(5,80,100,25);
+    [rotateButton setTitle:@"Rotate" forState:UIControlStateNormal];
+    [rotateButton setBackgroundColor:[UIColor blackColor]];
+    [rotateButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [rotateButton addTarget:self action:@selector(toggleRotate:) forControlEvents:UIControlEventTouchDown];
+    [rotateButton setEnabled:YES];
+    [self.view addSubview:rotateButton];
     
     //Button for toggling fog (foggling)
     UIButton *fogToggleakaFoggle = [UIButton buttonWithType:UIButtonTypeCustom];

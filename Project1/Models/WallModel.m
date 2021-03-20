@@ -46,6 +46,7 @@ const static GLubyte indices[] = {
 //Update method interited from Model.m
 -(void)updateWithDelta:(NSTimeInterval)delta
 {
+    
 }
 
 @end
