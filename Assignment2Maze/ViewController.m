@@ -43,6 +43,8 @@
     float movementSpeed;
     float translationX;
     float translationY;
+    bool canRotate;
+    float originalPoint;
     
     //Minimap stuff
     NSMutableArray *miniMapWalls; //Minimap tiles
@@ -80,6 +82,10 @@
     doubleTap1F.numberOfTouchesRequired = 1;
     [self.view addGestureRecognizer:doubleTap1F];
     
+    //Initialize variables
+    canRotate = true;
+    originalPoint = 2.0f;
+
     //Set up UI elements
     [self setupUIElements];
     
@@ -91,7 +97,7 @@
 - (void) setupScene
 {
     //Camera tracking
-    cameraPos = GLKVector3Make(0, 0, 0);
+    cameraPos = GLKVector3Make(0, 0, 2.0f);
     cameraTarget = GLKVector3Make(0, 0, -1);
     cameraDirection = GLKVector3Normalize(GLKVector3Subtract(cameraPos, cameraTarget));
     cameraRight = GLKVector3Normalize(GLKVector3CrossProduct(GLKVector3Make(0, 1, 0), cameraDirection));
@@ -197,6 +203,61 @@
 //Pan handler for rotating and moving
 - (void) handleSinglePanGesture:(UIPanGestureRecognizer *) sender
 {
+    if(canRotate == true)
+    {
+        if(sender.state == UIGestureRecognizerStateEnded)
+        {
+            CGPoint translation = [sender translationInView:sender.view];
+            float x = translation.x/sender.view.frame.size.width;
+            float y = translation.y/sender.view.frame.size.width;
+            //camPos = GLKVector3Add(camPos, GLKVector3Make(x, 0, y));
+        }
+        if(sender.state == UIGestureRecognizerStateChanged)
+        {
+            
+            //CGPoint translation = [sender translationInView:sender.view];
+            CGPoint velocity = [sender velocityInView:sender.view];
+
+            //float tY = translation.y/sender.view.frame.size.width;
+            float fX = velocity.x/sender.view.frame.size.width;
+            
+            rotationAngle += fX;
+        }
+    } else
+    {
+        if(sender.state == UIGestureRecognizerStateEnded)
+        {
+            CGPoint translation = [sender translationInView:sender.view];
+            float x = translation.x/sender.view.frame.size.width;
+            float y = translation.y/sender.view.frame.size.width;
+            //camPos = GLKVector3Add(camPos, GLKVector3Make(x, 0, y));
+        }
+        
+        if(sender.state == UIGestureRecognizerStateChanged)
+        {
+            
+            CGPoint translation = [sender translationInView:sender.view];
+            CGPoint velocity = [sender velocityInView:sender.view];
+            
+            float fX = velocity.x/sender.view.frame.size.width;
+            float tY = translation.y/sender.view.frame.size.width;
+            
+            if (translation.y < 0)
+            {
+                originalPoint -= 0.1f;
+            }
+            else
+            {
+                originalPoint += 0.1f;
+            }
+            
+            
+            cameraPos = GLKVector3Make(0.0f, 0.0f, originalPoint);
+        }
+    }
+}
+/*- (void) handleSinglePanGesture:(UIPanGestureRecognizer *) sender
+{
     if(sender .state == UIGestureRecognizerStateEnded)
     {
         translationX = 0;
@@ -277,7 +338,7 @@
         
         
     }
-}
+}*/
 
 //Button handler for switching between night and day
 - (void) dayNightSwap : (id) sender
@@ -311,12 +372,13 @@
     if(![sender isKindOfClass:[UIButton class]])
     {
         //Reset camera values to initial
-        cameraPos = GLKVector3Make(0, 0, 0);
+        cameraPos = GLKVector3Make(0, 0, 2.0f);
         cameraTarget = GLKVector3Make(0, 0, -1);
         cameraDirection = GLKVector3Normalize(GLKVector3Subtract(cameraPos, cameraTarget));
         cameraRight = GLKVector3Normalize(GLKVector3CrossProduct(GLKVector3Make(0, 1, 0), cameraDirection));
         cameraUp = GLKVector3CrossProduct(cameraDirection, cameraRight);
         rotationAngle = M_PI;
+        originalPoint = 2.0f;
     }
 }
 
