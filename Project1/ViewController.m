@@ -207,14 +207,21 @@
             
             CGPoint translation = [sender translationInView:sender.view];
             CGPoint velocity = [sender velocityInView:sender.view];
-
-            float tY = translation.y/sender.view.frame.size.width;
-            float fX = velocity.x/sender.view.frame.size.width;
             
-            originalPoint -= 0.1f;
+            float fX = velocity.x/sender.view.frame.size.width;
+            float tY = translation.y/sender.view.frame.size.width;
+            
+            if (translation.y < 0)
+            {
+                originalPoint -= 0.1f;
+            }
+            else
+            {
+                originalPoint += 0.1f;
+            }
+            
+            
             camPos = GLKVector3Make(0.0f, 0.0f, originalPoint);
-            //GLKMatrix4 viewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.5f);
-            //rotationAngle += fX;
         }
         
     }
